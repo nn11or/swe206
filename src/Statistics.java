@@ -7,7 +7,7 @@ public class Statistics {
         ArrayList<Machine> ListOfMachines = Machine.getListOfMachines();
         Collections.sort(ListOfMachines);
         // top 5
-        for(int i =0; i > 5; i++){
+        for(int i =0; i < 5 && i < ListOfMachines.size(); i++){
             System.out.println(ListOfMachines.get(i).getMachineName());
         }
     }
@@ -15,7 +15,7 @@ public class Statistics {
         ArrayList<Member> ListOfMember = Member.getListOfMembers();
         Collections.sort(ListOfMember);
         // top 5
-        for(int i =0; i > 5; i++){
+        for(int i =0;  i < 5 && i < ListOfMember.size(); i++){
             System.out.println(ListOfMember.get(i).getUsername());
         }
     }

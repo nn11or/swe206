@@ -4,19 +4,28 @@ public class Machine implements Comparable<Machine>{
     private String machineName;
     private String SuggestedUsage;
     private static ArrayList<Machine> listOfMachines = new ArrayList<>();
+    static int uniqueNumber = 10000;
+    private int machineId;
     private int numberOfUsage;
+
 
     public Machine(String machineName, String SuggestedUsage) {
         this.machineName = machineName;
         this.SuggestedUsage = SuggestedUsage;
-        listOfMachines.add(this);
+        uniqueNumber = uniqueNumber + 1;
+        machineId = uniqueNumber;
         numberOfUsage = 0;
+        listOfMachines.add(this);
+
     }
     public void setSuggestedUsage(String suggestedUsage){
         this.SuggestedUsage = suggestedUsage;
     }
     public String getSuggestedUsage(){
         return SuggestedUsage;
+    }
+    public int getMachineId(){
+        return machineId;
     }
     public int getNumberOfUsage(){
         return numberOfUsage;

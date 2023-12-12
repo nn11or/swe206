@@ -6,6 +6,9 @@ public class User {
     private String Username;
     private ArrayList<String> ResearchInterest; // TO THE member
     private String Password;
+
+
+
     public User(String email, String username, ArrayList<String> researchInterest,String password) {
         this.Email = email;
         this.Username = username;

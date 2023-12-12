@@ -1,16 +1,32 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 public class Project implements Comparable<Project>{
     private String projectName;
     private ArrayList<Machine> AvailableMachines;
     private static ArrayList<Project> listOfProjects = new ArrayList<>();
+    private static List<String> listOfTheProjectsName = new ArrayList<>(); //New
+
     private Team team;
+    static int uniqueNumber = 10000;
+    private int projectId;
+
 
     public Project(String projectName) {
         this.projectName = projectName;
         this.AvailableMachines = new ArrayList<>();
+        uniqueNumber = uniqueNumber + 1;
+        projectId = uniqueNumber;
         listOfProjects.add(this);
+    }
+    public static String UniqueName(String projectName){
+        if (listOfProjects.contains(projectName)) {
+            return "Name has already been taken";
+        }else{
+            listOfTheProjectsName.add(projectName);
+            return "Name has been saved successfully";
+        }
     }
 
     public void setTeam(Team team){
@@ -29,7 +45,6 @@ public class Project implements Comparable<Project>{
         // error if team have another project
         setTeam(selectedTeam);
         selectedTeam.setProject(this);
-
     }
     public String getProjectName(){
         return projectName;

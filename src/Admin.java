@@ -7,7 +7,6 @@ public class Admin extends User{
     public Admin(String email, String Username, ArrayList<String> researchInterest, String password) {
         super(email, Username, researchInterest, password);
     }
-
     @Override
     public void viewTeams(){
         Scanner scanner = new Scanner(System.in);
@@ -26,6 +25,8 @@ public class Admin extends User{
             case 2:
                 viewMachinesAvailable(selectedTeam);
                 break;
+            case 3:
+                // add a broject
             default:
                 System.out.println("Invalid choice.");
                 break;

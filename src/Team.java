@@ -5,12 +5,19 @@ public class Team {
      private String TeamLeader;
      private ArrayList<Member> MembersOfTeam;
      private static ArrayList<Team> listOfTeams = new ArrayList<>();
-     private Project project;
+    static int uniqueNumber = 10000;
+    private int teamId;
+
+
+
+    private Project project;
 
      public Team(String teamLeader, ArrayList<String> teamMembers) {
         this.TeamLeader = teamLeader;
         this.MembersOfTeam = new ArrayList<>();
-        listOfTeams.add(this);
+         uniqueNumber = uniqueNumber + 1;
+         teamId = uniqueNumber;
+         listOfTeams.add(this);
      }
 
     public Project getProject(){
