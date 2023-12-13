@@ -21,7 +21,7 @@ public class Project implements Comparable<Project>{
         listOfProjects.add(this);
     }
     public static String UniqueName(String projectName){
-        if (listOfProjects.contains(projectName)) {
+        if (listOfTheProjectsName.contains(projectName)) {
             return "Name has already been taken";
         }else{
             listOfTheProjectsName.add(projectName);

@@ -12,7 +12,13 @@ public class Admin extends User{
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Select a team:");
-        // print teams
+        // Fetch the list of teams
+
+        // Print all teams in the list
+        for (int i = 0; i < Team.getListOfTeams().size(); i++) {
+            System.out.println((i) + ". " + Team.getListOfTeams().get(i).getTeamName());
+        }
+
         int selectedTeamIndex = scanner.nextInt();
         Team selectedTeam = Team.getListOfTeams().get(selectedTeamIndex);
         System.out.println("Enter 1 to view project details or 2 to view available machines:");
@@ -26,7 +32,7 @@ public class Admin extends User{
                 viewMachinesAvailable(selectedTeam);
                 break;
             case 3:
-                // add a broject
+                assignMachineTimeToProject();
             default:
                 System.out.println("Invalid choice.");
                 break;

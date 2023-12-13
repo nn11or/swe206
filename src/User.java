@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Scanner;
+
 public class User {
     private String Email;
     private String Username;
@@ -50,12 +52,66 @@ public class User {
     public void viewMachinesAvailable(Team selectedTeam){
         System.out.println(selectedTeam.getProject().getAvailableMachines());
     }
-    public void assignMachineTimeToProject(Machine machine,Project project, LocalDate date,LocalTime startTime, LocalTime endTime){
+    public void assignMachineTimeToProject() {
+        Scanner scanner = new Scanner(System.in);
+
+        // Display machines and get user selection
+        ArrayList<Machine> machines = Machine.getListOfMachines();
+        if (machines.isEmpty()) {
+            System.out.println("No machines available.");
+            return;
+        }
+        for (int i = 0; i < machines.size(); i++) {
+            Machine machine = machines.get(i);
+            System.out.println(i + ". " + machine.getMachineName() + " (ID: " + machine.getMachineId() + ", Suggested Usage: " + machine.getSuggestedUsage() + ")");
+        }
+
+        System.out.println("Select a machine by index:");
+        int machineIndex = scanner.nextInt();
+        if (machineIndex < 0 || machineIndex >= machines.size()) {
+            System.out.println("Invalid machine index.");
+            return;
+        }
+        Machine selectedMachine = machines.get(machineIndex);
+
+        // Display projects and get user selection
+        ArrayList<Project> projects = Project.getListOfProjects();
+        if (projects.isEmpty()) {
+            System.out.println("No projects available.");
+            return;
+        }
+        for (int i = 0; i < projects.size(); i++) {
+            Project project = projects.get(i);
+            System.out.println(i + ". " + project.getProjectName());
+        }
+
+        System.out.println("Select a project by index:");
+        int projectIndex = scanner.nextInt();
+        if (projectIndex < 0 || projectIndex >= projects.size()) {
+            System.out.println("Invalid project index.");
+            return;
+        }
+        Project selectedProject = projects.get(projectIndex);
+
+        // Get reservation details
+        System.out.println("Enter the reservation date (YYYY-MM-DD):");
+        LocalDate date = LocalDate.parse(scanner.next());
+
+        System.out.println("Enter the start time (HH:MM):");
+        LocalTime startTime = LocalTime.parse(scanner.next());
+
+        System.out.println("Enter the end time (HH:MM):");
+        LocalTime endTime = LocalTime.parse(scanner.next());
+
+        // Call the private helper method
+        assignMachineTimeToProject(selectedMachine, selectedProject, date, startTime, endTime);
+    }
+    private void assignMachineTimeToProject(Machine machine,Project project, LocalDate date,LocalTime startTime, LocalTime endTime){
         Reservation newReservation = new Reservation(machine, project, date, startTime, endTime);
-        boolean isOverlap = true;
+        boolean isOverlap = false;
         for (Reservation existingReservation : Reservation.listOfReservation){
             if (existingReservation.overlapsWith(newReservation)) {
-                isOverlap = false;
+                isOverlap = true;
                 break;
             }
         }

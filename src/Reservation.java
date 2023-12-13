@@ -57,7 +57,6 @@ public class Reservation {
         LocalTime newReservationStartTime = newReservation.getStartTime();
         LocalTime newReservationEndTime = newReservation.getEndTime();
         if (!this.date.equals(newReservationDate)) {
-
             return false;
         }
 

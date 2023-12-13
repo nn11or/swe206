@@ -1,23 +1,32 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Team {
+
+     private String teamName;
      private String TeamLeader;
      private ArrayList<Member> MembersOfTeam;
      private static ArrayList<Team> listOfTeams = new ArrayList<>();
-    static int uniqueNumber = 10000;
-    private int teamId;
+     static int uniqueNumber = 10000;
+     private int teamId;
+     private Project project;
 
-
-
-    private Project project;
-
-     public Team(String teamLeader, ArrayList<String> teamMembers) {
-        this.TeamLeader = teamLeader;
-        this.MembersOfTeam = new ArrayList<>();
+     public Team(String teamName,String teamLeader, ArrayList<Member> MembersOfTeam) {
+         this.teamName = teamName;
+         this.TeamLeader = teamLeader;
+         this.MembersOfTeam = MembersOfTeam;
          uniqueNumber = uniqueNumber + 1;
          teamId = uniqueNumber;
          listOfTeams.add(this);
+     }
+     public String getTeamName(){
+         return teamName;
+     }
+
+     public void setTeamName(String teamName){
+         this.teamName = teamName;
      }
 
     public Project getProject(){
@@ -63,7 +72,7 @@ public class Team {
         removeMember(selectedMember);
     }
 
-    private void addMember(Member member) {
+    private void addMember(Member member){
         MembersOfTeam.add(member);
         member.getMemberTeamsList().add(this);
     }
@@ -71,6 +80,31 @@ public class Team {
     private void removeMember(Member member) {
         MembersOfTeam.remove(member);
         member.getMemberTeamsList().remove(this);
+    }
+
+    public static void writeTeamsToFile(String filename) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            for (Team team : listOfTeams) {
+                String teamInfo = formatTeamInfo(team);
+                writer.write(teamInfo + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String formatTeamInfo(Team team) {
+        StringBuilder info = new StringBuilder("Team ID: " + team.teamId + ", Team Name: " + team.getTeamName() + ", Team Leader: " + team.TeamLeader);
+        info.append(", Members: ");
+        for (Member member : team.MembersOfTeam) {
+
+            info.append(member.getUsername() + " (Teams: " + member.getMemberTeamsList().size() + "), ");
+        }
+        // Remove the last comma and space
+        if (!team.MembersOfTeam.isEmpty()) {
+            info.setLength(info.length() - 2);
+        }
+        return info.toString();
     }
 
 }

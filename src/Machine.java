@@ -50,7 +50,13 @@ public class Machine implements Comparable<Machine>{
     }
 
     @Override
+    public String toString(){
+        return "The Machine name is: " + machineName;
+    }
+
+    @Override
     public int compareTo(Machine otherMachine) {
         return Integer.compare(this.numberOfUsage, otherMachine.numberOfUsage);
     }
+
 }

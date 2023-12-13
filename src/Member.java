@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Member extends User implements Comparable<Member>{
     private ArrayList<Team> MemberTeamsList;
@@ -35,6 +37,8 @@ public class Member extends User implements Comparable<Member>{
             case 2:
                 viewMachinesAvailable(selectedTeam);
                 break;
+            case 3:
+                assignMachineTimeToProject();
             default:
                 System.out.println("Invalid choice.");
                 break;
